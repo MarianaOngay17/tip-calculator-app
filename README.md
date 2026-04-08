@@ -7,7 +7,7 @@ Solución de [Tip calculator app challenge on Frontend Mentor](https://www.front
 
 Desktop
 
-![alt text](dekstop.png)
+![alt text](desktop.png)
 
 Tablet
 
