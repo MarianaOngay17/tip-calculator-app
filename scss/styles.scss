@@ -1,0 +1,292 @@
+@use 'variables' as v;
+@use 'mixins' as m;
+@use 'sass:color';
+
+body{
+    font-family: v.$fuente_principal;
+    background-color: v.$Grey200;
+
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+}
+
+.logo{
+    margin: 2rem;
+
+    @include m.desktop{
+        margin: 3rem 0;
+    }
+}
+
+.calculator{
+    background-color: v.$White;
+    padding: 1rem;
+    width: 90%;
+    margin: 0;
+    border-radius: 30px;
+
+    display: grid;
+    grid-template-columns: 1fr;
+
+    @include m.tablet{
+        width: 65%;
+        padding: 1.5rem 3.5rem;
+    }
+
+    @include m.desktop{
+        grid-template-columns: repeat(2, 1fr);
+        padding: 1rem;
+    }
+
+    &__title{
+        color: v.$Grey500;
+        font-weight: v.$bold;
+        margin: 1rem 0;
+    }
+
+    &__bill,
+    &__tip,
+    &__people,
+    &__results{
+        margin: 1rem;
+    }
+
+    &__results{
+        background-color: v.$Green900;
+        padding: 1rem;
+        border-radius: 10px;
+
+        @include m.desktop{
+            grid-row: 1 / 4;
+            grid-column: 2/ 3;
+
+            display: flex;
+            flex-direction: column;
+            height: auto;
+        }
+    }
+
+}
+
+.bill,
+.people{
+
+    &__input{
+        background-color: color.adjust(v.$Grey50, $lightness: -2%);
+        padding: 0.5rem 1rem;
+        border-radius: 5px;  
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        &:hover{
+            cursor: pointer;
+            border: 2.5px solid v.$Green400;
+        }
+    }
+
+    &__icon{
+        height: fit-content;
+    }
+
+    &__total{
+        flex: 1;
+        border: none;
+        outline: none;
+        background-color: transparent;
+        color: v.$Green900;
+        font-weight: v.$bold;
+        font-size: 1.5rem;
+        font-family: v.$fuente_principal;
+        text-align: right;
+        width: 100%;
+
+        &:hover{
+            cursor: pointer;
+        }
+    }
+
+    &__labels{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.5rem;
+    }
+
+    &__error{
+        color: red;
+        font-size: 0.8rem;
+        font-weight: v.$bold;
+    }
+}
+
+.tip{
+
+    &__porcentage{
+        display: grid;
+        grid-template-columns:  repeat(2, 1fr);
+        gap: 1rem;
+
+        @include m.tablet{
+            grid-template-columns:  repeat(3, 1fr);;
+        }
+    }
+
+    &__options{
+        background-color: v.$Green900;
+        color: v.$White;
+        text-align: center;
+        font-size: 1.4rem;
+        font-weight: v.$bold;
+        border-radius: 5px;
+        padding: 0.5rem;
+        margin: 0;
+        width: 100%;
+        box-sizing: border-box;
+
+        &:hover{
+            cursor: pointer;
+            background-color: v.$GreenHover;
+            color: v.$Green900;
+        }
+
+        &--custom{
+            background-color: color.adjust(v.$Grey50, $lightness: -2%);
+            color: v.$Grey500;
+            width: 100%;
+            box-sizing: border-box;
+            border: none;
+            outline: none;
+            
+            &:hover{
+                cursor: pointer;
+                background-color: color.adjust(v.$Grey50, $lightness: -2%);
+                color: v.$Green900;
+                border: 2.5px solid v.$Green400;
+            }
+        }
+
+    }
+}
+
+.result{
+
+    &__title{
+        color: v.$White;
+        font-weight: v.$bold;
+        font-size: 1rem;       
+    }
+
+    &__person{
+        color: v.$Grey400;
+        font-size: 0.8rem;
+    }
+
+    &__tip,
+    &__total{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 1rem 0.5rem;
+    }
+
+    &__number{
+        color: v.$Green400;
+        font-weight: v.$bold;
+        font-size: 2rem;
+        
+        @include m.tablet{
+            font-size: 2.5rem;
+        }
+
+        @include m.desktop{
+            font-size: 3rem;
+        }
+    }
+
+    &__reset{
+        background-color: v.$GreenDisabled;
+        color: color.adjust(v.$Green900, $lightness: 5%);
+        font-weight: v.$bold;
+        text-align: center;
+        border-radius: 5px;
+        text-transform: uppercase;
+        padding: 0.5rem;
+        margin-top: 2rem;
+
+        @include m.desktop{
+            margin: auto 1rem 1.5rem 1rem;
+        }
+    }
+
+}
+
+//elementos activos/seleccionados
+.active{
+    background-color:v.$Green400;
+    color: v.$Green900;
+
+    &:hover{
+        cursor: pointer;
+        background-color: v.$GreenHover;
+        color: v.$Green900;
+    }
+}
+
+//ocultar elementos
+.hidden{
+    display: none;
+}
+
+//borde rojo en input para error
+.input-error{
+    border: 2.5px solid red;
+}
+
+//ELIMINA FLECHAS DE INPUT NUMBER
+.bill__total::-webkit-outer-spin-button,
+.bill__total::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.bill__total[type="number"] {
+    appearance: textfield;      
+  -moz-appearance: textfield;
+}
+
+.tip__options--custom::-webkit-outer-spin-button,
+.tip__options--custom::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.tip__options--custom[type="number"] {
+    appearance: textfield;      
+  -moz-appearance: textfield;
+}
+
+.people__total::-webkit-outer-spin-button,
+.people__total::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.people__total[type="number"] {
+    appearance: textfield;      
+  -moz-appearance: textfield;
+}
+
+.attribution{
+    margin-bottom: 0;
+    margin-top: 1rem;
+    text-align: center;
+    font-size: 0.8rem;
+    color: v.$Green900;
+
+    a {
+        color: v.$Green400;
+    }
+
+}
